@@ -34,7 +34,7 @@ namespace examination_system.DB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Student_Subject>()
-            .HasKey(ss => new { ss.StudentId, ss.SubjectId });
+                .HasKey(ss => new { ss.StudentId, ss.SubjectId });
 
             modelBuilder.Entity<Student_Subject>()
                 .HasOne(ss => ss.Student)
@@ -45,24 +45,33 @@ namespace examination_system.DB
                 .HasOne(ss => ss.Subject)
                 .WithMany(s => s.StudentSubjects)
                 .HasForeignKey(ss => ss.SubjectId);
+
+            modelBuilder.Entity<Exam>()
+                .HasOne(e => e.Subject)
+                .WithMany(s => s.Exams)
+                .HasForeignKey(e => e.SubjectId);
+
+            modelBuilder.Entity<Question>()
+                .HasOne(q => q.Exam)
+                .WithMany(e => e.Questions)
+                .HasForeignKey(q => q.ExamId);
+
+            modelBuilder.Entity<Answer>()
+                .HasOne(a => a.Question)
+                .WithMany(q => q.Answers)
+                .HasForeignKey(a => a.QuestionId);
+
+            modelBuilder.Entity<StudentAnswer>()
+                .HasOne(sa => sa.Question)
+                .WithMany()
+                .HasForeignKey(sa => sa.QuestionId)
+                .OnDelete(DeleteBehavior.NoAction); // Specify ON DELETE NO ACTION for this foreign key constraint
+
             modelBuilder.Entity<StudentAnswer>()
                 .HasOne(sa => sa.Answer)
                 .WithMany()
                 .HasForeignKey(sa => sa.AnswerId)
-                .IsRequired(false); // Optional on the "Many" side
-
-            // Define the relationship between StudentAnswer and Question
-            modelBuilder.Entity<StudentAnswer>()
-       .HasOne(sa => sa.Question)
-       .WithMany()
-       .HasForeignKey(sa => sa.QuestionId)
-       .OnDelete(DeleteBehavior.NoAction); // Specify ON DELETE NO ACTION for this foreign key constraint
-
-            modelBuilder.Entity<StudentAnswer>()
-                .HasOne(sa => sa.Answer)
-                .WithMany()
-                .HasForeignKey(sa => sa.AnswerId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.NoAction); // Specify ON DELETE NO ACTION for this foreign key constraint
         }
 
     }
