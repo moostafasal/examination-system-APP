@@ -16,7 +16,9 @@ namespace examination_system.DB
         [ForeignKey("ExamId")]
         public Exam Exam { get; set; }
 
-        public ICollection<Answer> Answers { get; set; }
+        public string CorrectAnswer { get; set; }
+
         public ICollection<StudentAnswer> StudentAnswers { get; set; }
+
     }
 }

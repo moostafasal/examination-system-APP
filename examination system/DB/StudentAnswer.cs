@@ -5,29 +5,16 @@ namespace examination_system.DB
 {
     public class StudentAnswer
     {
-        [Key]
         public int StudentAnswerId { get; set; }
-
-        [Required]
+        public string Answer { get; set; }
+        // Foreign key for Student
         public int StudentId { get; set; }
-
         [ForeignKey("StudentId")]
         public Student Student { get; set; }
-
-        [Required]
-        public int ExamId { get; set; }
-
-        [ForeignKey("ExamId")]
-        public Exam Exam { get; set; }
-
-        [Required]
+        // Foreign key for Question
+        
         public int QuestionId { get; set; }
-
-        public Question Question { get; set; } // Removed ForeignKey attribute
-
-        [Required]
-        public int AnswerId { get; set; }
-
-        public Answer Answer { get; set; } // Removed ForeignKey attribute
+        [ForeignKey("QuestionId")]
+        public Question Question { get; set; }
     }
 }

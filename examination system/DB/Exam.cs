@@ -5,19 +5,19 @@ namespace examination_system.DB
 {
     public class Exam
     {
-        [Key]
         public int ExamId { get; set; }
+        // Navigation property for questions
+        public ICollection<Question> Questions { get; set; }
+        // Foreign key for Subject
 
-        [Required]
+        //title
+
         public string Title { get; set; }
+        public int time { get; set; }
 
         public int SubjectId { get; set; }
-
-        [ForeignKey("SubjectId")]
         public Subject Subject { get; set; }
 
-        public ICollection<Question> Questions { get; set; }
-        public ICollection<Result> Results { get; set; }
-        public ICollection<StudentAnswer> StudentAnswers { get; set; }
+
     }
 }
