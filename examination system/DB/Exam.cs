@@ -18,6 +18,7 @@ namespace examination_system.DB
         public int SubjectId { get; set; }
         public Subject Subject { get; set; }
 
-
+        //degree
+        public int Degree { get; set; }
     }
 }

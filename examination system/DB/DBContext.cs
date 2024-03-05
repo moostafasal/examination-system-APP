@@ -11,7 +11,8 @@ namespace examination_system.DB
         public DbSet<Exam> Exams { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Result> Results { get; set; }
-        public DbSet<StudentAnswer> StudentAnswers { get; set; }
+        public DbSet<Student_Subject> studentSubject { get; set; }
+        public DbSet<Answers> Answers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

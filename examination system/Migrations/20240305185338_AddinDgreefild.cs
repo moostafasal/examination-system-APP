@@ -5,24 +5,24 @@
 namespace examination_system.Migrations
 {
     /// <inheritdoc />
-    public partial class DBsetup2 : Migration
+    public partial class AddinDgreefild : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Title",
+            migrationBuilder.AddColumn<int>(
+                name: "Degree",
                 table: "Exams",
-                type: "nvarchar(max)",
+                type: "int",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: 0);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Title",
+                name: "Degree",
                 table: "Exams");
         }
     }

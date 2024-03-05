@@ -47,8 +47,8 @@ namespace examination_system
                 if (student != null)
                 {
                     // Authentication successful, open new window to display student data
-                    //StudentForm studentForm = new StudentForm(student);
-                    //studentForm.Show();
+                    StudentForm studentForm = new StudentForm(student);
+                    studentForm.Show();
                     this.Hide(); // Hide the current login form
                 }
                 else

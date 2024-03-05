@@ -17,6 +17,18 @@ namespace examination_system
         }
 
         //
+        private void StudentForm_Load(object sender, EventArgs e)
+        {
+            if (_student != null)
+            {
+                // Populate textBox1 with student ID
+                textBox1.Text = _student.StudentId.ToString();
+
+                // Populate textBox2 with student name
+                textBox2.Text = _student.UserName;
+            }
+        }
+
 
 
         // Add other methods and event handlers as needed
@@ -41,7 +53,7 @@ namespace examination_system
             button1.Name = "button1";
             button1.Size = new Size(202, 54);
             button1.TabIndex = 0;
-            button1.Text = "button1";
+            button1.Text = "Take Exam";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -144,10 +156,7 @@ namespace examination_system
             PerformLayout();
         }
 
-        private void StudentForm_Load(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -187,17 +196,16 @@ namespace examination_system
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-
+            textBox2.Text = _student.UserName;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
+            textBox1.Text = _student.StudentId.ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

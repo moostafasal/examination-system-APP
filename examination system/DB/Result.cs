@@ -5,22 +5,13 @@ namespace examination_system.DB
 {
     public class Result
     {
-        [Key]
         public int ResultId { get; set; }
-
-        [Required]
         public int Score { get; set; }
-
-        [Required]
+        // Foreign key for Student
         public int StudentId { get; set; }
-
-        [ForeignKey("StudentId")]
         public Student Student { get; set; }
-
-        [Required]
+        // Foreign key for Exam
         public int ExamId { get; set; }
-
-        [ForeignKey("ExamId")]
         public Exam Exam { get; set; }
     }
 }
