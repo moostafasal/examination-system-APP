@@ -14,6 +14,7 @@ namespace examination_system.DB
 
         public string student_answer { get; set; }
 
+
         public int? AnswerId { get; set; }
 
         public Answers Answer { get; set; }

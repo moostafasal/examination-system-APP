@@ -10,7 +10,9 @@ namespace examination_system
     public partial class ExamForm : Form
     {
         private List<Question> _questions;
-        private List<Answers> _selectedAnswers;
+        private List<Answers> Answers;
+        private List<StudentAnswer> _selectedAnswers;
+
         private int _totalScore;
         private int _selectedSubjectId;
         private Student _student;
@@ -21,7 +23,8 @@ namespace examination_system
             InitializeComponent();
             _student = student;
             _selectedSubjectId = selectedSubjectId;
-            _selectedAnswers = new List<Answers>();
+            _selectedAnswers = new List<StudentAnswer>();
+            Answers = new List<Answers>();
             panelQuestions = new Panel();
             panelQuestions.Dock = DockStyle.Fill;
             Controls.Add(panelQuestions);
@@ -40,6 +43,7 @@ namespace examination_system
                     .ToList();
             }
         }
+
 
         private void DisplayQuestions()
         {
@@ -73,17 +77,32 @@ namespace examination_system
                 if (answer != null)
                 {
                     // Add radio buttons for each option
-                    AddRadioButton(groupBox, answer.Option_one, radioButtonYPos);
+                    AddRadioButton(groupBox, answer.Option_one, radioButtonYPos, answer);
                     radioButtonYPos += 15; // Adjust spacing
-                    AddRadioButton(groupBox, answer.Option_tow, radioButtonYPos);
+                    AddRadioButton(groupBox, answer.Option_tow, radioButtonYPos, answer);
                     radioButtonYPos += 15; // Adjust spacing
-                    AddRadioButton(groupBox, answer.Option_three, radioButtonYPos);
+                    AddRadioButton(groupBox, answer.Option_three, radioButtonYPos, answer);
                     radioButtonYPos += 15; // Adjust spacing
-                    AddRadioButton(groupBox, answer.Option_four, radioButtonYPos);
+                    AddRadioButton(groupBox, answer.Option_four, radioButtonYPos, answer);
                 }
 
                 yPos += groupBox.Height + 10; // Update yPos for next question
             }
+        }
+
+        private void AddRadioButton(Control parent, string text, int yPos, Answers answer)
+        {
+            var radioButton = new RadioButton
+            {
+                Text = text,
+                Location = new Point(20, yPos),
+                AutoSize = true,
+                Tag = answer // Set the Tag property to the Answers object
+            };
+            parent.Controls.Add(radioButton);
+
+            // Add event handler for radio button selection
+            radioButton.CheckedChanged += RadioButton_CheckedChanged;
         }
 
         private void AddRadioButton(Control parent, string text, int yPos)
@@ -99,31 +118,59 @@ namespace examination_system
             // Add event handler for radio button selection
             radioButton.CheckedChanged += RadioButton_CheckedChanged;
         }
+
+
+
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
             var radioButton = sender as RadioButton;
             if (radioButton != null && radioButton.Checked)
             {
-                // Handle answer selection
+                // Get the selected answer associated with the radio button
+                var selectedAnswer = radioButton.Tag as Answers;
+
+                // Save the selected answer text to the student_answer property
+                var studentAnswer = new StudentAnswer
+                {
+                    StudentId = _student.StudentId,
+                    AnswerId = selectedAnswer.AnswerId,
+                    student_answer = radioButton.Text // Save the text of the selected radio button
+                };
+                _selectedAnswers.Add(studentAnswer);
+
+                // Save changes to the database
+                using (var dbContext = new ExamDbContext())
+                {
+                    dbContext.StudentAnswer.Add(studentAnswer);
+                    dbContext.SaveChanges();
+                }
             }
         }
-      
 
         private int CalculateScore()
         {
             int score = 0;
-            foreach (var question in _questions)
+            foreach (var selectedAnswer in _selectedAnswers)
             {
-                foreach (var answer in _selectedAnswers)
+                // Retrieve the selected answer text from the StudentAnswer object
+                var selectedOption = selectedAnswer.student_answer;
+
+                // Retrieve the corresponding answer object from the database
+                var answer = Answers.FirstOrDefault(a => a.AnswerId == selectedAnswer.AnswerId);
+
+                // Ensure that the answer and its correctness value are not null
+                if (answer != null && !string.IsNullOrEmpty(answer.CorectAns))
                 {
-                    if (question.Answer.Contains(answer) && answer.CorectAns == "Yes")
+                    // Check if the selected answer matches the correct answer
+                    if (selectedOption == answer.CorectAns)
                     {
-                        score += question.Mark;
+                        score += 1; // Assuming each correct answer adds 1 to the score
                     }
                 }
             }
             return score;
         }
+
 
         private void StoreResult()
         {
@@ -144,15 +191,55 @@ namespace examination_system
         {
             // Your code for form load event
         }
-        private void btnSubmit_Click(object sender, EventArgs e)
+        //private void btnSubmit_Click(object sender, EventArgs e)
+        //{
+        //    // Iterate through radio buttons to find the selected answers
+        //    foreach (var control in panelQuestions.Controls)
+        //    {
+        //        if (control is RadioButton radioButton && radioButton.Checked)
+        //        {
+        //            var selectedAnswer = (Answers)radioButton.Tag;
+        //            _selectedAnswers.Add(selectedAnswer);
+        //        }
+        //    }
+
+        //    // Calculate score
+        //    _totalScore = CalculateScore();
+
+        //    // Store result
+        //    StoreResult();
+
+        //    // Show result in ResultForm
+        //    ResultForm resultForm = new ResultForm(_totalScore);
+        //    resultForm.ShowDialog();
+
+        //    // Close the exam form
+        //    this.Close();
+        //}
+        private void button1_Click(object sender, EventArgs e)
         {
             // Iterate through radio buttons to find the selected answers
             foreach (var control in panelQuestions.Controls)
             {
-                if (control is RadioButton radioButton && radioButton.Checked)
+                if (control is GroupBox groupBox)
                 {
-                    var selectedAnswer = (Answers)radioButton.Tag;
-                    _selectedAnswers.Add(selectedAnswer);
+                    foreach (var radioControl in groupBox.Controls)
+                    {
+                        if (radioControl is RadioButton radioButton && radioButton.Checked)
+                        {
+                            var selectedAnswer = (Answers)radioButton.Tag;
+
+                            // Create a new StudentAnswer object to store the selected answer
+                            var studentAnswer = new StudentAnswer
+                            {
+                                StudentId = _student.StudentId,
+                                AnswerId = selectedAnswer.AnswerId
+                            };
+
+                            // Add the selected answer to the list of selected answers
+                            _selectedAnswers.Add(studentAnswer);
+                        }
+                    }
                 }
             }
 
@@ -169,7 +256,6 @@ namespace examination_system
             // Close the exam form
             this.Close();
         }
-
 
     }
 }
