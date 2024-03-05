@@ -43,7 +43,7 @@ namespace examination_system
             {
                 // Authenticate user
                 var student = _dbContext.Students.FirstOrDefault(s => s.UserName == username && s.Password == password);
-
+                var DB = _dbContext;
                 if (student != null)
                 {
                     // Authentication successful, open new window to display student data

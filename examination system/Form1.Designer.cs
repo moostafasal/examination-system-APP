@@ -40,9 +40,9 @@
             label1.AutoSize = true;
             label1.Location = new Point(217, 101);
             label1.Name = "label1";
-            label1.Size = new Size(61, 15);
+            label1.Size = new Size(39, 15);
             label1.TabIndex = 0;
-            label1.Text = "userName";
+            label1.Text = "Name";
             label1.Click += label1_Click;
             // 
             // label2
@@ -77,7 +77,7 @@
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 4;
-            button1.Text = "button1";
+            button1.Text = "Singin";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 

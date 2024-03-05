@@ -8,7 +8,6 @@ namespace examination_system
     {
         private Student _student;
         private ExamDbContext _dbContext;
-
         public StudentForm(Student student)
         {
             InitializeComponent();
@@ -27,6 +26,13 @@ namespace examination_system
                 // Populate textBox2 with student name
                 textBox2.Text = _student.UserName;
             }
+            var subjects = _dbContext.studentSubject
+                                 .Where(ss => ss.StudentId == _student.StudentId)
+                                 .Select(ss => ss.Subject)
+                                 .ToList();
+
+            comboBox1.DisplayMember = "Name"; // Set the display member to be the Name property of the Subject
+            comboBox1.DataSource = subjects;
         }
 
 
@@ -64,6 +70,7 @@ namespace examination_system
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(121, 23);
             comboBox1.TabIndex = 1;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // label1
             // 
@@ -156,8 +163,6 @@ namespace examination_system
             PerformLayout();
         }
 
-      
-
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -175,7 +180,6 @@ namespace examination_system
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -206,6 +210,15 @@ namespace examination_system
 
         private void button1_Click(object sender, EventArgs e)
         {
+            ExamForm examForm = new ExamForm(student, selectedSubjectId);
+            examForm.Show();
+            this.Hide();
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
