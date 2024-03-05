@@ -197,6 +197,8 @@ namespace examination_system
         private Label label5;
         private TextBox textBox1;
         private TextBox textBox2;
+        private Student student;
+        private Subject selectedSubjectId;
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
@@ -210,10 +212,20 @@ namespace examination_system
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ExamForm examForm = new ExamForm(student, selectedSubjectId);
-            examForm.Show();
-            this.Hide();
+            if (comboBox1.SelectedItem != null)
+            {
+                // Retrieve the selected subject's ID
+                int selectedSubjectId = ((Subject)comboBox1.SelectedItem).SubjectId;
 
+                // Pass the student and selected subject ID to the ExamForm
+                ExamForm examForm = new ExamForm(_student, selectedSubjectId);
+                examForm.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Please select a subject.");
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

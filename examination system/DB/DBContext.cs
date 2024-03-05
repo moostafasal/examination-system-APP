@@ -13,6 +13,10 @@ namespace examination_system.DB
         public DbSet<Result> Results { get; set; }
         public DbSet<Student_Subject> studentSubject { get; set; }
         public DbSet<Answers> Answers { get; set; }
+        //studnt answers
+        public DbSet<StudentAnswer> StudentAnswer { get; set; }
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
