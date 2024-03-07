@@ -73,18 +73,18 @@ namespace examination_system
                 // Create radio buttons for each option of the answer
                 int radioButtonYPos = 40;
 
-                var answer = question.Answer.FirstOrDefault(); // Assuming only one answer per question
-                if (answer != null)
-                {
-                    // Add radio buttons for each option
-                    AddRadioButton(groupBox, answer.Option_one, radioButtonYPos, answer);
-                    radioButtonYPos += 15; // Adjust spacing
-                    AddRadioButton(groupBox, answer.Option_tow, radioButtonYPos, answer);
-                    radioButtonYPos += 15; // Adjust spacing
-                    AddRadioButton(groupBox, answer.Option_three, radioButtonYPos, answer);
-                    radioButtonYPos += 15; // Adjust spacing
-                    AddRadioButton(groupBox, answer.Option_four, radioButtonYPos, answer);
-                }
+                //var answer = question.Answer.FirstOrDefault(); // Assuming only one answer per question
+                //if (answer != null)
+                //{
+                //    // Add radio buttons for each option
+                //    AddRadioButton(groupBox, answer.Option_one, radioButtonYPos, answer);
+                //    radioButtonYPos += 15; // Adjust spacing
+                //    AddRadioButton(groupBox, answer.Option_tow, radioButtonYPos, answer);
+                //    radioButtonYPos += 15; // Adjust spacing
+                //    AddRadioButton(groupBox, answer.Option_three, radioButtonYPos, answer);
+                //    radioButtonYPos += 15; // Adjust spacing
+                //    AddRadioButton(groupBox, answer.Option_four, radioButtonYPos, answer);
+                //}
 
                 yPos += groupBox.Height + 10; // Update yPos for next question
             }
@@ -159,7 +159,7 @@ namespace examination_system
                 var answer = Answers.FirstOrDefault(a => a.AnswerId == selectedAnswer.AnswerId);
 
                 // Ensure that the answer and its correctness value are not null
-                if (answer != null && !string.IsNullOrEmpty(answer.CorectAns))
+                if (answer != null)
                 {
                     // Check if the selected answer matches the correct answer
                     if (selectedOption == answer.CorectAns)

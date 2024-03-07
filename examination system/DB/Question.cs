@@ -19,7 +19,10 @@ namespace examination_system.DB
         //mark
         public int Mark { get; set; }
 
-        public ICollection<Answers> Answer { get; set; }
+
+
+
+        public Answers Answer { get; set; }
 
 
     }
