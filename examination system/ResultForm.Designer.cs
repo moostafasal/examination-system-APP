@@ -41,11 +41,14 @@ namespace examination_system
             label1.Size = new Size(77, 15);
             label1.TabIndex = 0;
             label1.Text = "your ruslt is:::";
+            label1.Click += label1_Click;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(307, 146);
+            textBox1.ForeColor = SystemColors.MenuHighlight;
+            textBox1.Location = new Point(323, 139);
             textBox1.Name = "textBox1";
+            textBox1.ScrollBars = ScrollBars.Horizontal;
             textBox1.Size = new Size(100, 23);
             textBox1.TabIndex = 1;
             textBox1.TextChanged += textBox1_TextChanged;
@@ -59,12 +62,15 @@ namespace examination_system
             Controls.Add(label1);
             Name = "ResultForm";
             Text = "ResultForm";
+            Load += ResultForm_Load_1;
             ResumeLayout(false);
             PerformLayout();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            textBox1.Text = _result.ToString();
+
         }
 
         #endregion

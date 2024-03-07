@@ -49,24 +49,24 @@ namespace examination_system.DB
 
                 ////add answrs
 
-                context.Answers.AddRange(
+                //context.Answers.AddRange(
 
-                    new Answers { QuestionId = 2, CorectAns = "4", Option_one = "2", Option_tow = "3", Option_three = "4", Option_four = "0" },
+                //    new Answers { QuestionId = 2, CorectAns = "4", Option_one = "2", Option_tow = "3", Option_three = "4", Option_four = "0" },
 
-                    new Answers { QuestionId = 3, CorectAns = "8", Option_one = "4", Option_tow = "9", Option_three = "8", Option_four = "110" },
+                //    new Answers { QuestionId = 3, CorectAns = "8", Option_one = "4", Option_tow = "9", Option_three = "8", Option_four = "110" },
 
-                     new Answers { QuestionId = 4, CorectAns = "10", Option_one = "1", Option_tow = "9", Option_three = "10", Option_four = "10" },
+                //     new Answers { QuestionId = 4, CorectAns = "10", Option_one = "1", Option_tow = "9", Option_three = "10", Option_four = "10" },
 
-                     new Answers { QuestionId = 5, CorectAns = "5", Option_one = "8", Option_tow = "9", Option_three = "5", Option_four = "10" },
+                //     new Answers { QuestionId = 5, CorectAns = "5", Option_one = "8", Option_tow = "9", Option_three = "5", Option_four = "10" },
 
-                      new Answers { QuestionId = 6, CorectAns = "12", Option_one = "9", Option_tow = "12", Option_three = "8", Option_four = "910" }
+                //      new Answers { QuestionId = 6, CorectAns = "12", Option_one = "9", Option_tow = "12", Option_three = "8", Option_four = "910" }
 
-                    );
-
-
+                //    );
 
 
-                context.SaveChanges();
+
+
+                //context.SaveChanges();
 
             }
         }

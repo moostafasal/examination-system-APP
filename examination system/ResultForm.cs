@@ -25,5 +25,17 @@ namespace examination_system
             // Display the result in the text box
             textBox1.Text = _result.ToString();
         }
+
+        private void ResultForm_Load_1(object sender, EventArgs e)
+        {
+            textBox1.Text = _result.ToString();
+
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

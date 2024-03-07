@@ -38,9 +38,14 @@ namespace examination_system
             using (var dbContext = new ExamDbContext())
             {
                 _questions = dbContext.Questions
-                    .Include("Answer") // Include answers for each question
+                    .Include(q => q.Answer) // Include answers for each question
                     .Where(q => q.Exam.SubjectId == _selectedSubjectId)
                     .ToList();
+
+                //lode Answers :
+
+                Answers = _questions.Select(q => q.Answer).ToList();
+
             }
         }
 
@@ -73,20 +78,20 @@ namespace examination_system
                 // Create radio buttons for each option of the answer
                 int radioButtonYPos = 40;
 
-                //var answer = question.Answer.FirstOrDefault(); // Assuming only one answer per question
-                //if (answer != null)
-                //{
-                //    // Add radio buttons for each option
-                //    AddRadioButton(groupBox, answer.Option_one, radioButtonYPos, answer);
-                //    radioButtonYPos += 15; // Adjust spacing
-                //    AddRadioButton(groupBox, answer.Option_tow, radioButtonYPos, answer);
-                //    radioButtonYPos += 15; // Adjust spacing
-                //    AddRadioButton(groupBox, answer.Option_three, radioButtonYPos, answer);
-                //    radioButtonYPos += 15; // Adjust spacing
-                //    AddRadioButton(groupBox, answer.Option_four, radioButtonYPos, answer);
-                //}
+                var answer = Answers.FirstOrDefault(A => A.QuestionId == question.QuestionId);  
+                if (answer != null)
+                {
+                    // Add radio buttons for each option
+                    AddRadioButton(groupBox, answer.Option_one, radioButtonYPos, answer);
+                    radioButtonYPos += 15; // Adjust spacing
+                    AddRadioButton(groupBox, answer.Option_tow, radioButtonYPos, answer);
+                    radioButtonYPos += 15; // Adjust spacing
+                    AddRadioButton(groupBox, answer.Option_three, radioButtonYPos, answer);
+                    radioButtonYPos += 15; // Adjust spacing
+                    AddRadioButton(groupBox, answer.Option_four, radioButtonYPos, answer);
+                }
 
-                yPos += groupBox.Height + 10; // Update yPos for next question
+                yPos += groupBox.Height + 10; 
             }
         }
 
@@ -152,10 +157,11 @@ namespace examination_system
             int score = 0;
             foreach (var selectedAnswer in _selectedAnswers)
             {
-                // Retrieve the selected answer text from the StudentAnswer object
                 var selectedOption = selectedAnswer.student_answer;
 
-                // Retrieve the corresponding answer object from the database
+
+                
+
                 var answer = Answers.FirstOrDefault(a => a.AnswerId == selectedAnswer.AnswerId);
 
                 // Ensure that the answer and its correctness value are not null
@@ -164,7 +170,7 @@ namespace examination_system
                     // Check if the selected answer matches the correct answer
                     if (selectedOption == answer.CorectAns)
                     {
-                        score += 1; // Assuming each correct answer adds 1 to the score
+                        score += 10; 
                     }
                 }
             }
