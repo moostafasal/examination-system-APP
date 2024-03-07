@@ -33,6 +33,7 @@
             // 
             // button1
             // 
+            button1.ForeColor = Color.MediumSeaGreen;
             button1.Location = new Point(713, 419);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
@@ -45,8 +46,12 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            AutoScroll = true;
+            AutoSize = true;
+            ClientSize = new Size(805, 450);
+            ControlBox = false;
             Controls.Add(button1);
+            ImeMode = ImeMode.On;
             Name = "ExamForm";
             Text = "ExamForm";
             Load += ExamForm_Load;

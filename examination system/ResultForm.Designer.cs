@@ -31,33 +31,61 @@ namespace examination_system
         {
             label1 = new Label();
             textBox1 = new TextBox();
+            button1 = new Button();
+            button3 = new Button();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(189, 142);
+            label1.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(28, 124);
             label1.Name = "label1";
-            label1.Size = new Size(77, 15);
+            label1.Size = new Size(353, 65);
             label1.TabIndex = 0;
-            label1.Text = "your ruslt is:::";
+            label1.Text = "Your Dgree is :";
             label1.Click += label1_Click;
             // 
             // textBox1
             // 
+            textBox1.Font = new Font("Segoe Script", 48F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
             textBox1.ForeColor = SystemColors.MenuHighlight;
-            textBox1.Location = new Point(323, 139);
+            textBox1.Location = new Point(430, 99);
             textBox1.Name = "textBox1";
             textBox1.ScrollBars = ScrollBars.Horizontal;
-            textBox1.Size = new Size(100, 23);
+            textBox1.Size = new Size(100, 110);
             textBox1.TabIndex = 1;
             textBox1.TextChanged += textBox1_TextChanged;
+            // 
+            // button1
+            // 
+            button1.AccessibleRole = AccessibleRole.Grip;
+            button1.Font = new Font("Segoe UI Historic", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Location = new Point(65, 324);
+            button1.Name = "button1";
+            button1.Size = new Size(250, 54);
+            button1.TabIndex = 2;
+            button1.Text = "Home";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.AccessibleRole = AccessibleRole.Grip;
+            button3.Font = new Font("Segoe UI Historic", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button3.Location = new Point(408, 324);
+            button3.Name = "button3";
+            button3.Size = new Size(250, 54);
+            button3.TabIndex = 4;
+            button3.Text = "Logout";
+            button3.UseVisualStyleBackColor = true;
             // 
             // ResultForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(758, 450);
+            Controls.Add(button3);
+            Controls.Add(button1);
             Controls.Add(textBox1);
             Controls.Add(label1);
             Name = "ResultForm";
@@ -77,5 +105,7 @@ namespace examination_system
 
         private Label label1;
         private TextBox textBox1;
+        private Button button1;
+        private Button button3;
     }
 }

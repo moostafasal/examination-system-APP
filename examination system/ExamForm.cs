@@ -53,6 +53,8 @@ namespace examination_system
         private void DisplayQuestions()
         {
             int yPos = 0;
+            int groupBoxHeight = 200; // Initial height of the group box
+
             foreach (var question in _questions)
             {
                 // Create label for question
@@ -70,29 +72,33 @@ namespace examination_system
                 {
                     Location = new Point(10, yPos),
                     Width = panelQuestions.Width - 30,
-                    Height = 100,
+                    Height = 200,
                     Text = "Answers"
                 };
                 panelQuestions.Controls.Add(groupBox);
 
                 // Create radio buttons for each option of the answer
-                int radioButtonYPos = 40;
+                int radioButtonYPos = 30; // Initial Y position of the first radio button
 
-                var answer = Answers.FirstOrDefault(A => A.QuestionId == question.QuestionId);  
+                var answer = Answers.FirstOrDefault(A => A.QuestionId == question.QuestionId);
                 if (answer != null)
                 {
                     // Add radio buttons for each option
                     AddRadioButton(groupBox, answer.Option_one, radioButtonYPos, answer);
-                    radioButtonYPos += 15; // Adjust spacing
+                    radioButtonYPos += 35; // Adjust spacing
                     AddRadioButton(groupBox, answer.Option_tow, radioButtonYPos, answer);
-                    radioButtonYPos += 15; // Adjust spacing
+                    radioButtonYPos += 35; // Adjust spacing
                     AddRadioButton(groupBox, answer.Option_three, radioButtonYPos, answer);
-                    radioButtonYPos += 15; // Adjust spacing
+                    radioButtonYPos += 35; // Adjust spacing
                     AddRadioButton(groupBox, answer.Option_four, radioButtonYPos, answer);
                 }
 
-                yPos += groupBox.Height + 10; 
+                yPos += groupBox.Height + 5; 
+
+
             }
+            panelQuestions.AutoScroll = true;
+
         }
 
         private void AddRadioButton(Control parent, string text, int yPos, Answers answer)
@@ -100,7 +106,7 @@ namespace examination_system
             var radioButton = new RadioButton
             {
                 Text = text,
-                Location = new Point(20, yPos),
+                Location = new Point(10, yPos),
                 AutoSize = true,
                 Tag = answer // Set the Tag property to the Answers object
             };
@@ -115,7 +121,7 @@ namespace examination_system
             var radioButton = new RadioButton
             {
                 Text = text,
-                Location = new Point(20, yPos),
+                Location = new Point(10, yPos),
                 AutoSize = true
             };
             parent.Controls.Add(radioButton);
@@ -235,7 +241,6 @@ namespace examination_system
                         {
                             var selectedAnswer = (Answers)radioButton.Tag;
 
-                            // Create a new StudentAnswer object to store the selected answer
                             var studentAnswer = new StudentAnswer
                             {
                                 StudentId = _student.StudentId,
