@@ -17,7 +17,8 @@ namespace examination_system.Migrations
                     StudentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,6 +44,7 @@ namespace examination_system.Migrations
                 {
                     ExamId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     time = table.Column<int>(type: "int", nullable: false),
                     SubjectId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -58,7 +60,7 @@ namespace examination_system.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Student_Subject",
+                name: "studentSubject",
                 columns: table => new
                 {
                     StudentId = table.Column<int>(type: "int", nullable: false),
@@ -66,15 +68,15 @@ namespace examination_system.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Student_Subject", x => new { x.StudentId, x.SubjectId });
+                    table.PrimaryKey("PK_studentSubject", x => new { x.StudentId, x.SubjectId });
                     table.ForeignKey(
-                        name: "FK_Student_Subject_Students_StudentId",
+                        name: "FK_studentSubject_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "StudentId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Student_Subject_Subjects_SubjectId",
+                        name: "FK_studentSubject_Subjects_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subjects",
                         principalColumn: "SubjectId",
@@ -89,7 +91,7 @@ namespace examination_system.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExamId = table.Column<int>(type: "int", nullable: false),
-                    CorrectAnswer = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Mark = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -130,31 +132,59 @@ namespace examination_system.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentAnswers",
+                name: "Answers",
                 columns: table => new
                 {
-                    StudentAnswerId = table.Column<int>(type: "int", nullable: false)
+                    AnswerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Answer = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    Option_one = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Option_tow = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Option_three = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Option_four = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CorectAns = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     QuestionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentAnswers", x => x.StudentAnswerId);
+                    table.PrimaryKey("PK_Answers", x => x.AnswerId);
                     table.ForeignKey(
-                        name: "FK_StudentAnswers_Questions_QuestionId",
+                        name: "FK_Answers_Questions_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Questions",
                         principalColumn: "QuestionId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StudentAnswer",
+                columns: table => new
+                {
+                    StudentAnswerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    student_answer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AnswerId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentAnswer", x => x.StudentAnswerId);
                     table.ForeignKey(
-                        name: "FK_StudentAnswers_Students_StudentId",
+                        name: "FK_StudentAnswer_Answers_AnswerId",
+                        column: x => x.AnswerId,
+                        principalTable: "Answers",
+                        principalColumn: "AnswerId");
+                    table.ForeignKey(
+                        name: "FK_StudentAnswer_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "StudentId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Answers_QuestionId",
+                table: "Answers",
+                column: "QuestionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Exams_SubjectId",
@@ -177,19 +207,19 @@ namespace examination_system.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Student_Subject_SubjectId",
-                table: "Student_Subject",
-                column: "SubjectId");
+                name: "IX_StudentAnswer_AnswerId",
+                table: "StudentAnswer",
+                column: "AnswerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentAnswers_QuestionId",
-                table: "StudentAnswers",
-                column: "QuestionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StudentAnswers_StudentId",
-                table: "StudentAnswers",
+                name: "IX_StudentAnswer_StudentId",
+                table: "StudentAnswer",
                 column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_studentSubject_SubjectId",
+                table: "studentSubject",
+                column: "SubjectId");
         }
 
         /// <inheritdoc />
@@ -199,16 +229,19 @@ namespace examination_system.Migrations
                 name: "Results");
 
             migrationBuilder.DropTable(
-                name: "Student_Subject");
+                name: "StudentAnswer");
 
             migrationBuilder.DropTable(
-                name: "StudentAnswers");
+                name: "studentSubject");
 
             migrationBuilder.DropTable(
-                name: "Questions");
+                name: "Answers");
 
             migrationBuilder.DropTable(
                 name: "Students");
+
+            migrationBuilder.DropTable(
+                name: "Questions");
 
             migrationBuilder.DropTable(
                 name: "Exams");

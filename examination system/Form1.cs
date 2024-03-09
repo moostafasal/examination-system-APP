@@ -43,12 +43,12 @@ namespace examination_system
             {
                 // Authenticate user
                 var student = _dbContext.Students.FirstOrDefault(s => s.UserName == username && s.Password == password);
-
+                var DB = _dbContext;
                 if (student != null)
                 {
                     // Authentication successful, open new window to display student data
-                    //StudentForm studentForm = new StudentForm(student);
-                    //studentForm.Show();
+                    StudentForm studentForm = new StudentForm(student);
+                    studentForm.Show();
                     this.Hide(); // Hide the current login form
                 }
                 else
@@ -70,6 +70,8 @@ namespace examination_system
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
+            textBox2.UseSystemPasswordChar = true;
+
 
         }
     }

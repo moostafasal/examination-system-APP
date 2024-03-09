@@ -38,17 +38,17 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(217, 101);
+            label1.Location = new Point(235, 113);
             label1.Name = "label1";
-            label1.Size = new Size(61, 15);
+            label1.Size = new Size(39, 15);
             label1.TabIndex = 0;
-            label1.Text = "userName";
+            label1.Text = "Name";
             label1.Click += label1_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(217, 168);
+            label2.Location = new Point(235, 163);
             label2.Name = "label2";
             label2.Size = new Size(57, 15);
             label2.TabIndex = 1;
@@ -57,9 +57,10 @@
             // 
             // textBox1
             // 
+            textBox1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox1.Location = new Point(308, 98);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(168, 23);
+            textBox1.Size = new Size(168, 35);
             textBox1.TabIndex = 2;
             textBox1.TextChanged += textBox1_TextChanged;
             // 
@@ -73,11 +74,11 @@
             // 
             // button1
             // 
-            button1.Location = new Point(339, 227);
+            button1.Location = new Point(278, 231);
             button1.Name = "button1";
-            button1.Size = new Size(75, 23);
+            button1.Size = new Size(218, 58);
             button1.TabIndex = 4;
-            button1.Text = "button1";
+            button1.Text = "Singin";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -85,7 +86,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(758, 450);
             Controls.Add(button1);
             Controls.Add(textBox2);
             Controls.Add(textBox1);

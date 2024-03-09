@@ -10,7 +10,7 @@ namespace examination_system.DB
         {
             using (var context = new ExamDbContext())
             {
-                // Check if data exists
+                //Check if data exists
                 //if (context.Students.Any())
                 //{
                 //    return; // Data already seeded
@@ -18,31 +18,55 @@ namespace examination_system.DB
 
                 //// Add initial data
                 //context.Students.AddRange(
-                //    new Student { UserName = "Mostafa", Password = "A123" },
-                //    new Student { UserName = "Abdulah", Password = "A000" }
+                //    new Student { Email = "Mostafa10@gmail.com", UserName = "Mostafa", Password = "A123" },
+                //    new Student { Email = "Abdulah@gmail.com", UserName = "Abdulah", Password = "A000" }
                 //);
 
-                context.Subjects.AddRange(
-                    new Subject { Name = "Math" },
-                    new Subject { Name = "Science" }
-                );
+                //context.Subjects.AddRange(
+                //    new Subject { Name = "Math" },
+                //    new Subject { Name = "Databeas" }
+                //);
+                //context.studentSubject.AddRange(
+                //    new Student_Subject { StudentId = 1, SubjectId = 1 },
+                //     new Student_Subject { StudentId = 1, SubjectId = 2 }
 
-                context.Exams.AddRange(
-                    new Exam { Title = "Math Exam", SubjectId = 3 },
-                    new Exam { Title = "Science Exam", SubjectId = 4 }
-                );
+
+                //    );
+
+
+                //context.Exams.AddRange(
+                //    new Exam { Title = "Math Exam ", SubjectId = 1, time = 60, Degree = 30 },
+                //    new Exam { Title = "Databaes ", SubjectId = 2, time = 60, Degree = 30 }
+                //);
 
                 //context.Questions.AddRange(
-                //    new Question { Text = "What is 2 + 2?", CorrectAnswer = "4", ExamId = 1 },
-                //    new Question { Text = "What is the capital of France?", CorrectAnswer = "Paris", ExamId = 2 }
+                //    new Question { Text = "What is 2 + 2?", ExamId = 1, Mark = 5 },
+                //     new Question { Text = "What is 4 + 4?", ExamId = 1, Mark = 5 },
+                //     new Question { Text = "What is 2 + 8?", ExamId = 1, Mark = 5 },
+                //     new Question { Text = "What is 2 + 3?", ExamId = 1, Mark = 5 },
+                //     new Question { Text = "What is 2 + 10?", ExamId = 1, Mark = 5 }
                 //);
 
-                //context.Results.AddRange(
-                //    new Result { Score = 90, StudentId = 1, ExamId = 1 },
-                //    new Result { Score = 85, StudentId = 2, ExamId = 2 }
-                //);
+                ////add answrs
 
-                context.SaveChanges();
+                //context.Answers.AddRange(
+
+                //    new Answers { QuestionId = 2, CorectAns = "4", Option_one = "2", Option_tow = "3", Option_three = "4", Option_four = "0" },
+
+                //    new Answers { QuestionId = 3, CorectAns = "8", Option_one = "4", Option_tow = "9", Option_three = "8", Option_four = "110" },
+
+                //     new Answers { QuestionId = 4, CorectAns = "10", Option_one = "1", Option_tow = "9", Option_three = "10", Option_four = "10" },
+
+                //     new Answers { QuestionId = 5, CorectAns = "5", Option_one = "8", Option_tow = "9", Option_three = "5", Option_four = "10" },
+
+                //      new Answers { QuestionId = 6, CorectAns = "12", Option_one = "9", Option_tow = "12", Option_three = "8", Option_four = "910" }
+
+                //    );
+
+
+
+
+                //context.SaveChanges();
 
             }
         }

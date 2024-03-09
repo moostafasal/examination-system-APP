@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using examination_system.DB;
 
@@ -11,9 +12,11 @@ using examination_system.DB;
 namespace examination_system.Migrations
 {
     [DbContext(typeof(ExamDbContext))]
-    partial class ExamDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240305185338_AddinDgreefild")]
+    partial class AddinDgreefild
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,8 +75,7 @@ namespace examination_system.Migrations
 
                     b.HasKey("AnswerId");
 
-                    b.HasIndex("QuestionId")
-                        .IsUnique();
+                    b.HasIndex("QuestionId");
 
                     b.ToTable("Answers");
                 });
@@ -248,8 +250,8 @@ namespace examination_system.Migrations
             modelBuilder.Entity("examination_system.DB.Answers", b =>
                 {
                     b.HasOne("examination_system.DB.Question", "Question")
-                        .WithOne("Answer")
-                        .HasForeignKey("examination_system.DB.Answers", "QuestionId")
+                        .WithMany("Answer")
+                        .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -321,8 +323,7 @@ namespace examination_system.Migrations
 
             modelBuilder.Entity("examination_system.DB.Question", b =>
                 {
-                    b.Navigation("Answer")
-                        .IsRequired();
+                    b.Navigation("Answer");
                 });
 
             modelBuilder.Entity("examination_system.DB.Student", b =>
