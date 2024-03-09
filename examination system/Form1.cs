@@ -70,6 +70,8 @@ namespace examination_system
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
+            textBox2.UseSystemPasswordChar = true;
+
 
         }
     }

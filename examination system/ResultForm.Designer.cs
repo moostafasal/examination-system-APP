@@ -39,7 +39,7 @@ namespace examination_system
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(28, 124);
+            label1.Location = new Point(12, 137);
             label1.Name = "label1";
             label1.Size = new Size(353, 65);
             label1.TabIndex = 0;
@@ -50,10 +50,10 @@ namespace examination_system
             // 
             textBox1.Font = new Font("Segoe Script", 48F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
             textBox1.ForeColor = SystemColors.MenuHighlight;
-            textBox1.Location = new Point(430, 99);
+            textBox1.Location = new Point(387, 112);
             textBox1.Name = "textBox1";
             textBox1.ScrollBars = ScrollBars.Horizontal;
-            textBox1.Size = new Size(100, 110);
+            textBox1.Size = new Size(279, 110);
             textBox1.TabIndex = 1;
             textBox1.TextChanged += textBox1_TextChanged;
             // 
@@ -67,6 +67,7 @@ namespace examination_system
             button1.TabIndex = 2;
             button1.Text = "Home";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // button3
             // 
@@ -78,6 +79,7 @@ namespace examination_system
             button3.TabIndex = 4;
             button3.Text = "Logout";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click_1;
             // 
             // ResultForm
             // 

@@ -33,10 +33,11 @@
             // 
             // button1
             // 
+            button1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.MediumSeaGreen;
-            button1.Location = new Point(713, 419);
+            button1.Location = new Point(665, 397);
             button1.Name = "button1";
-            button1.Size = new Size(75, 23);
+            button1.Size = new Size(75, 32);
             button1.TabIndex = 0;
             button1.Text = "submit";
             button1.UseVisualStyleBackColor = true;
@@ -48,7 +49,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             AutoSize = true;
-            ClientSize = new Size(805, 450);
+            ClientSize = new Size(758, 450);
             ControlBox = false;
             Controls.Add(button1);
             ImeMode = ImeMode.On;

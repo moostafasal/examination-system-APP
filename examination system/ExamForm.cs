@@ -17,6 +17,8 @@ namespace examination_system
         private int _selectedSubjectId;
         private Student _student;
         private Panel panelQuestions;
+        private Label examNameLabel; 
+
 
         public ExamForm(Student student, int selectedSubjectId)
         {
@@ -29,8 +31,24 @@ namespace examination_system
             panelQuestions.Dock = DockStyle.Fill;
             Controls.Add(panelQuestions);
             LoadQuestions();
+            ShuffleQuestions();
             DisplayQuestions();
+            SetupExamNameLabel();
+
         }
+        private void SetupExamNameLabel()
+        {
+            // Create the label for displaying the exam name
+            var examNameLabel = new Label
+            {
+                Text = "", // The exam name will be set later when the form loads
+                AutoSize = true,
+                Location = new Point(20, 20), // Adjust the location as needed
+                Anchor = AnchorStyles.Top | AnchorStyles.Left // Anchor to the top-left corner
+            };
+            Controls.Add(examNameLabel); 
+        }
+
 
         private void LoadQuestions()
         {
@@ -50,22 +68,49 @@ namespace examination_system
         }
 
 
+
+        private void ShuffleQuestions()
+        {
+            Random rng = new Random();
+            int n = _questions.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                Question value = _questions[k];
+                _questions[k] = _questions[n];
+                _questions[n] = value;
+            }
+
+        }
+
+
         private void DisplayQuestions()
         {
+            int questionNumber = 1; // Start with the first question number
             int yPos = 0;
-            int groupBoxHeight = 200; // Initial height of the group box
 
             foreach (var question in _questions)
             {
-                // Create label for question
-                var label = new Label
+                // Create label for question number
+                var numberLabel = new Label
+                {
+                    Text = $"Question {questionNumber}:",
+                    AutoSize = true,
+                    Location = new Point(10, yPos)
+                };
+                panelQuestions.Controls.Add(numberLabel);
+                yPos += numberLabel.Height; // Adjust yPos
+
+                // Create label for question text
+                var questionLabel = new Label
                 {
                     Text = question.Text,
                     AutoSize = true,
-                    Location = new Point(20, yPos)
+                    Location = new Point(30, yPos) // Adjust the location to leave space for the question number
                 };
-                panelQuestions.Controls.Add(label);
-                yPos += label.Height + 10;
+                panelQuestions.Controls.Add(questionLabel);
+                yPos += questionLabel.Height + 20;
 
                 // Create group box to group radio buttons for answers
                 var groupBox = new GroupBox
@@ -79,7 +124,6 @@ namespace examination_system
 
                 // Create radio buttons for each option of the answer
                 int radioButtonYPos = 30; // Initial Y position of the first radio button
-
                 var answer = Answers.FirstOrDefault(A => A.QuestionId == question.QuestionId);
                 if (answer != null)
                 {
@@ -89,16 +133,14 @@ namespace examination_system
                     AddRadioButton(groupBox, answer.Option_tow, radioButtonYPos, answer);
                     radioButtonYPos += 35; // Adjust spacing
                     AddRadioButton(groupBox, answer.Option_three, radioButtonYPos, answer);
-                    radioButtonYPos += 35; // Adjust spacing
+                    radioButtonYPos += 33; // Adjust spacing
                     AddRadioButton(groupBox, answer.Option_four, radioButtonYPos, answer);
                 }
 
-                yPos += groupBox.Height + 5; 
-
-
+                yPos += groupBox.Height + 5;
+                questionNumber++; // Increment the question number for the next question
             }
             panelQuestions.AutoScroll = true;
-
         }
 
         private void AddRadioButton(Control parent, string text, int yPos, Answers answer)
@@ -166,7 +208,7 @@ namespace examination_system
                 var selectedOption = selectedAnswer.student_answer;
 
 
-                
+
 
                 var answer = Answers.FirstOrDefault(a => a.AnswerId == selectedAnswer.AnswerId);
 
@@ -176,7 +218,7 @@ namespace examination_system
                     // Check if the selected answer matches the correct answer
                     if (selectedOption == answer.CorectAns)
                     {
-                        score += 10; 
+                        score += 10;
                     }
                 }
             }
@@ -201,7 +243,28 @@ namespace examination_system
         }
         private void ExamForm_Load(object sender, EventArgs e)
         {
-            // Your code for form load event
+            string examName;
+            using (var dbContext = new ExamDbContext())
+            {
+                // Assuming you have a DbSet named Exams in your DbContext
+                var exam = dbContext.Exams.FirstOrDefault(ex => ex.SubjectId == _selectedSubjectId);
+                if (exam != null)
+                {
+                    examName = exam.Title;
+                }
+                else
+                {
+                    examName = "Unknown Exam";
+                }
+
+            }
+
+            //var examNameLabel = Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Name == "examNameLabel");
+            //if (examNameLabel != null)
+            //{
+            //    // Set the text of the label to display the exam name
+            //    examNameLabel.Text = examName;
+            //}
         }
         //private void btnSubmit_Click(object sender, EventArgs e)
         //{
@@ -261,12 +324,16 @@ namespace examination_system
             StoreResult();
 
             // Show result in ResultForm
-            ResultForm resultForm = new ResultForm(_totalScore);
+            ResultForm resultForm = new ResultForm(_totalScore,_student.StudentId);
             resultForm.ShowDialog();
 
             // Close the exam form
             this.Close();
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
